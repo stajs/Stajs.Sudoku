@@ -61,10 +61,8 @@ namespace Stajs.Sudoku.Core.Tests
 			new Grid(new int[10,10]);
 		}
 
-		[TestMethod]
-		public void Ctor_ValuesBelowZero_ThrowsValueOutOfRangeException()
+		private int GetValueOutOfRangeExceptionCountForValue(int value)
 		{
-			var expectedExceptionCount = 81; // 9x9
 			var exceptionCount = 0;
 
 			for (var i = 0; i < 9; i++)
@@ -72,7 +70,7 @@ namespace Stajs.Sudoku.Core.Tests
 				for (var j = 0; j < 9; j++)
 				{
 					var array = new int[9,9];
-					array[i, j] = -1;
+					array[i, j] = value;
 
 					try
 					{
@@ -84,6 +82,24 @@ namespace Stajs.Sudoku.Core.Tests
 					}
 				}
 			}
+
+			return exceptionCount;
+		}
+		
+		[TestMethod]
+		public void Ctor_ValuesBelowZero_ThrowsValueOutOfRangeException()
+		{
+			var expectedExceptionCount = 81; // 9x9
+			var exceptionCount = GetValueOutOfRangeExceptionCountForValue(-1);
+
+			Assert.AreEqual(expectedExceptionCount, exceptionCount);
+		}
+		
+		[TestMethod]
+		public void Ctor_ValuesAboveNine_ThrowsValueOutOfRangeException()
+		{
+			var expectedExceptionCount = 81; // 9x9
+			var exceptionCount = GetValueOutOfRangeExceptionCountForValue(10);
 
 			Assert.AreEqual(expectedExceptionCount, exceptionCount);
 		}
