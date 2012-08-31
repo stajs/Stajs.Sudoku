@@ -55,5 +55,25 @@ namespace Stajs.Sudoku.Core
 		{
 			return value >= MinValue && value <= MaxValue;
 		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+
+			for (var i = 0; i < DimensionLength; i++)
+			{
+				sb.Append("{");
+
+				for (var j = 0; j < DimensionLength; j++)
+					sb.AppendFormat(" {0},", Values[i, j]);
+
+				sb.Remove(sb.Length - 1, 1)
+					.AppendLine(" },");
+			}
+
+			sb.Remove(sb.Length - 3, 3);
+
+			return sb.ToString();
+		}
 	}
 }
