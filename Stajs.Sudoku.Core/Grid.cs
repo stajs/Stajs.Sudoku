@@ -15,10 +15,11 @@ namespace Stajs.Sudoku.Core
 			if (values == null)
 				throw new ArgumentNullException();
 
-			if (values.GetLength(0) < 1
-			    || values.GetLength(1) < 1
-			    || values.GetLength(0) > 9
-			    || values.GetLength(1) > 9)
+			const int requiredDimensionLength = 9;
+			var dimensionZeroLength = values.GetLength(0);
+			var dimensionOneLength = values.GetLength(1);
+
+			if (dimensionZeroLength != requiredDimensionLength || dimensionOneLength != requiredDimensionLength)
 				throw new ArrayLengthException();
 		}
 	}
