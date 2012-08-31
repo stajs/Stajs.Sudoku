@@ -8,6 +8,10 @@ namespace Stajs.Sudoku.Core
 {
 	public class Grid
 	{
+		const int DimensionLength = 9;
+		const int MinValue = 0;
+		const int MaxValue = 9;
+
 		internal int[,] Values;
 
 		public Grid(int[,] values)
@@ -15,12 +19,34 @@ namespace Stajs.Sudoku.Core
 			if (values == null)
 				throw new ArgumentNullException();
 
-			const int requiredDimensionLength = 9;
+			if (!AreDimensionsValid(values))
+				throw new ArrayLengthException();
+
+			if (!AreValuesValid(values))
+				throw new ValueOutOfRangeException();
+		}
+
+		private bool AreValuesValid(int[,] values)
+		{
+			for (var i = 0; i < DimensionLength; i++)
+			{
+				for (var j = 0; j < DimensionLength; j++)
+				{
+					var value = values[i, j];
+					if (value < MinValue || value > MaxValue)
+						return false;
+				}
+			}
+
+			return true;
+		}
+
+		private bool AreDimensionsValid(int[,] values)
+		{
 			var dimensionZeroLength = values.GetLength(0);
 			var dimensionOneLength = values.GetLength(1);
 
-			if (dimensionZeroLength != requiredDimensionLength || dimensionOneLength != requiredDimensionLength)
-				throw new ArrayLengthException();
+			return dimensionZeroLength == DimensionLength && dimensionOneLength == DimensionLength;
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Stajs.Sudoku.Core.Exceptions
 {
-	public class ArrayLengthException : ArgumentOutOfRangeException
+	public class ValueOutOfRangeException : ArgumentOutOfRangeException
 	{
 	}
 }

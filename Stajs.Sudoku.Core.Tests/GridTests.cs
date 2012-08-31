@@ -61,6 +61,33 @@ namespace Stajs.Sudoku.Core.Tests
 			new Grid(new int[10,10]);
 		}
 
+		[TestMethod]
+		public void Ctor_ValuesBelowZero_ThrowsValueOutOfRangeException()
+		{
+			var expectedExceptionCount = 81; // 9x9
+			var exceptionCount = 0;
+
+			for (var i = 0; i < 9; i++)
+			{
+				for (var j = 0; j < 9; j++)
+				{
+					var array = new int[9,9];
+					array[i, j] = -1;
+
+					try
+					{
+						new Grid(array);
+					}
+					catch (ValueOutOfRangeException)
+					{
+						exceptionCount++;
+					}
+				}
+			}
+
+			Assert.AreEqual(expectedExceptionCount, exceptionCount);
+		}
+
 		#endregion
 	}
 }
