@@ -28,6 +28,14 @@ namespace Stajs.Sudoku.Core
 			Values = values;
 		}
 
+		private bool AreDimensionsValid(int[,] values)
+		{
+			var dimensionZeroLength = values.GetLength(0);
+			var dimensionOneLength = values.GetLength(1);
+
+			return dimensionZeroLength == DimensionLength && dimensionOneLength == DimensionLength;
+		}
+
 		private bool AreValuesValid(int[,] values)
 		{
 			for (var i = 0; i < DimensionLength; i++)
@@ -35,7 +43,7 @@ namespace Stajs.Sudoku.Core
 				for (var j = 0; j < DimensionLength; j++)
 				{
 					var value = values[i, j];
-					if (value < MinValue || value > MaxValue)
+					if (!IsValueValid(value))
 						return false;
 				}
 			}
@@ -43,12 +51,9 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		private bool AreDimensionsValid(int[,] values)
+		private bool IsValueValid(int value)
 		{
-			var dimensionZeroLength = values.GetLength(0);
-			var dimensionOneLength = values.GetLength(1);
-
-			return dimensionZeroLength == DimensionLength && dimensionOneLength == DimensionLength;
+			return value >= MinValue && value <= MaxValue;
 		}
 	}
 }
