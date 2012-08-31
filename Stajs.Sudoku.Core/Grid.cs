@@ -24,6 +24,8 @@ namespace Stajs.Sudoku.Core
 
 			if (!AreValuesValid(values))
 				throw new ValueOutOfRangeException();
+
+			Values = values;
 		}
 
 		private bool AreValuesValid(int[,] values)
