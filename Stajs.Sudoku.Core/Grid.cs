@@ -22,10 +22,10 @@ namespace Stajs.Sudoku.Core
 			if (!AreDimensionsValid(values))
 				throw new ArrayLengthException();
 
-			if (!AreValuesValid(values))
-				throw new ValueOutOfRangeException();
-
 			Values = values;
+
+			if (!IsGridValid())
+				throw new ArgumentException();
 		}
 
 		private bool AreDimensionsValid(int[,] values)
@@ -34,21 +34,6 @@ namespace Stajs.Sudoku.Core
 			var dimensionOneLength = values.GetLength(1);
 
 			return dimensionZeroLength == DimensionLength && dimensionOneLength == DimensionLength;
-		}
-
-		private bool AreValuesValid(int[,] values)
-		{
-			for (var i = 0; i < DimensionLength; i++)
-			{
-				for (var j = 0; j < DimensionLength; j++)
-				{
-					var value = values[i, j];
-					if (!IsValueValid(value))
-						return false;
-				}
-			}
-
-			return true;
 		}
 
 		private static bool IsValueValid(int value)
@@ -102,6 +87,20 @@ namespace Stajs.Sudoku.Core
 
 			if (!IsQuadrantValid(GetQuadrantForPoint(x, y)))
 				return false;
+
+			return true;
+		}
+
+		private bool IsGridValid()
+		{
+			for (var x = 0; x < DimensionLength; x++)
+			{
+				for (var y = 0; y < DimensionLength; y++)
+				{
+					if (!IsPointValid(x, y))
+						return false;
+				}
+			}
 
 			return true;
 		}
