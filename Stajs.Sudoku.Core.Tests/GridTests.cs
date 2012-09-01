@@ -182,60 +182,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridTopLeft = new Grid(_arrayTopLeft);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_00_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(0, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 0, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_01_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(0, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 0, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_02_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(0, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 0, 2));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_10_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(1, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 1, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_11_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(1, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 1, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_12_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(1, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 1, 2));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_20_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(2, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 2, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_21_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(2, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 2, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_22_ReturnsTopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrantForPoint(2, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopLeft, 2, 2));
 		}
 
 		#endregion
@@ -255,60 +253,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridTopCenter = new Grid(_arrayTopCenter);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_03_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(0, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 0, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_04_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(0, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 0, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_05_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(0, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 0, 5));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_13_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(1, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 1, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_14_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(1, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 1, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_15_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(1, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 1, 5));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_23_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(2, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 2, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_24_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(2, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 2, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_25_ReturnsTopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrantForPoint(2, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopCenter, 2, 5));
 		}
 
 		#endregion
@@ -328,60 +324,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridTopRight = new Grid(_arrayTopRight);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_06_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(0, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 0, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_07_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(0, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 0, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_08_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(0, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 0, 8));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_16_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(1, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 1, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_17_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(1, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 1, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_18_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(1, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 1, 8));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_26_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(2, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 2, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_27_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(2, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 2, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_28_ReturnsTopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrantForPoint(2, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayTopRight, 2, 8));
 		}
 
 		#endregion
@@ -401,60 +395,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridCenterLeft = new Grid(_arrayCenterLeft);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_30_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(3, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 3, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_31_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(3, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 3, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_32_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(3, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 3, 2));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_40_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(4, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 4, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_41_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(4, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 4, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_42_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(4, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 4, 2));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_50_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(5, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 5, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_51_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(5, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 5, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_52_ReturnsCenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrantForPoint(5, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterLeft, 5, 2));
 		}
 
 		#endregion
@@ -474,60 +466,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridCenterCenter = new Grid(_arrayCenterCenter);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_33_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(3, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 3, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_34_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(3, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 3, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_35_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(3, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 3, 5));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_43_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(4, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 4, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_44_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(4, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 4, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_45_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(4, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 4, 5));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_53_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(5, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 5, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_54_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(5, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 5, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_55_ReturnsCenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrantForPoint(5, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterCenter, 5, 5));
 		}
 
 		#endregion
@@ -547,60 +537,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridCenterRight = new Grid(_arrayCenterRight);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_36_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(3, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 3, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_37_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(3, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 3, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_38_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(3, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 3, 8));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_46_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(4, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 4, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_47_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(4, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 4, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_48_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(4, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 4, 8));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_56_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(5, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 5, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_57_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(5, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 5, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_58_ReturnsCenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrantForPoint(5, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayCenterRight, 5, 8));
 		}
 
 		#endregion
@@ -620,60 +608,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 7, 8, 9, 0, 0, 0, 0, 0, 0 }
 		};
 
-		private Grid _gridBottomLeft = new Grid(_arrayBottomLeft);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_60_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(6, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 6, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_61_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(6, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 6, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_62_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(6, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 6, 2));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_70_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(7, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 7, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_71_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(7, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 7, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_72_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(7, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 7, 2));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_80_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(8, 0));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 8, 0));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_81_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(8, 1));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 8, 1));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_82_ReturnsBottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrantForPoint(8, 2));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomLeft, 8, 2));
 		}
 
 		#endregion
@@ -693,60 +679,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 7, 8, 9, 0, 0, 0 }
 		};
 
-		private Grid _gridBottomCenter = new Grid(_arrayBottomCenter);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_63_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(6, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 6, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_64_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(6, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 6, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_65_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(6, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 6, 5));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_73_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(7, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 7, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_74_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(7, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 7, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_75_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(7, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 7, 5));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_83_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(8, 3));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 8, 3));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_84_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(8, 4));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 8, 4));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_85_ReturnsBottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrantForPoint(8, 5));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomCenter, 8, 5));
 		}
 
 		#endregion
@@ -766,60 +750,58 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 0, 0, 0, 0, 0, 0, 7, 8, 9 }
 		};
 
-		private Grid _gridBottomRight = new Grid(_arrayBottomRight);
-
 		[TestMethod]
 		public void GetQuadrantForPoint_66_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(6, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 6, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_67_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(6, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 6, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_68_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(6, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 6, 8));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_76_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(7, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 7, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_77_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(7, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 7, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_78_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(7, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 7, 8));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_86_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(8, 6));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 8, 6));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_87_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(8, 7));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 8, 7));
 		}
 
 		[TestMethod]
 		public void GetQuadrantForPoint_88_ReturnsBottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrantForPoint(8, 8));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrantForPoint(_arrayBottomRight, 8, 8));
 		}
 
 		#endregion
@@ -831,55 +813,55 @@ namespace Stajs.Sudoku.Core.Tests
 		[TestMethod]
 		public void GetQuadrant_TopLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrant(Quadrant.TopLeft));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayTopLeft, Quadrant.TopLeft));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_TopCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrant(Quadrant.TopCenter));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayTopCenter, Quadrant.TopCenter));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_TopRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrant(Quadrant.TopRight));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayTopRight, Quadrant.TopRight));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_CenterLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrant(Quadrant.CenterLeft));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayCenterLeft, Quadrant.CenterLeft));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_CenterCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrant(Quadrant.CenterCenter));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayCenterCenter, Quadrant.CenterCenter));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_CenterRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrant(Quadrant.CenterRight));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayCenterRight, Quadrant.CenterRight));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_BottomLeft()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrant(Quadrant.BottomLeft));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayBottomLeft, Quadrant.BottomLeft));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_BottomCenter()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrant(Quadrant.BottomCenter));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayBottomCenter, Quadrant.BottomCenter));
 		}
 
 		[TestMethod]
 		public void GetQuadrant_BottomRight()
 		{
-			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrant(Quadrant.BottomRight));
+			CollectionAssert.AreEqual(_expectedQuadrant, Grid.GetQuadrant(_arrayBottomRight, Quadrant.BottomRight));
 		}
 
 		#endregion
@@ -1001,10 +983,9 @@ namespace Stajs.Sudoku.Core.Tests
 		#region IsPointValid
 
 		[TestMethod]
-		[Ignore]
 		public void IsPointValid_RepeatedValueInRow_ReturnsFalse()
 		{
-			var array = new[,]
+			var values = new[,]
 			{
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -1017,15 +998,13 @@ namespace Stajs.Sudoku.Core.Tests
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
 
-			var grid = new Grid(array);
-
-			Assert.IsFalse(grid.IsPointValid(2, 3));
+			Assert.IsFalse(Grid.IsPointValid(values, 2, 3));
 		}
 
 		[TestMethod]
 		public void IsPointValid_ValidRow_ReturnsTrue()
 		{
-			var array = new[,]
+			var values = new[,]
 			{
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -1038,16 +1017,13 @@ namespace Stajs.Sudoku.Core.Tests
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
 
-			var grid = new Grid(array);
-
-			Assert.IsTrue(grid.IsPointValid(2, 3));
+			Assert.IsTrue(Grid.IsPointValid(values, 2, 3));
 		}
 
 		[TestMethod]
-		[Ignore]
 		public void IsPointValid_RepeatedValueInColumn_ReturnsFalse()
 		{
-			var array = new[,]
+			var values = new[,]
 			{
 				{ 0, 0, 0, 1, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 2, 0, 0, 0, 0, 0 },
@@ -1060,15 +1036,13 @@ namespace Stajs.Sudoku.Core.Tests
 				{ 0, 0, 0, 9, 0, 0, 0, 0, 0 }
 			};
 
-			var grid = new Grid(array);
-
-			Assert.IsFalse(grid.IsPointValid(2, 3));
+			Assert.IsFalse(Grid.IsPointValid(values, 2, 3));
 		}
 
 		[TestMethod]
 		public void IsPointValid_ValidColumn_ReturnsTrue()
 		{
-			var array = new[,]
+			var values = new[,]
 			{
 				{ 0, 0, 0, 1, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 2, 0, 0, 0, 0, 0 },
@@ -1081,16 +1055,13 @@ namespace Stajs.Sudoku.Core.Tests
 				{ 0, 0, 0, 9, 0, 0, 0, 0, 0 }
 			};
 
-			var grid = new Grid(array);
-
-			Assert.IsTrue(grid.IsPointValid(2, 3));
+			Assert.IsTrue(Grid.IsPointValid(values, 2, 3));
 		}
 
 		[TestMethod]
-		[Ignore]
 		public void IsPointValid_RepeatedValueInQuadrant_ReturnsFalse()
 		{
-			var array = new[,]
+			var values = new[,]
 			{
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -1103,15 +1074,13 @@ namespace Stajs.Sudoku.Core.Tests
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
 
-			var grid = new Grid(array);
-
-			Assert.IsFalse(grid.IsPointValid(4, 4));
+			Assert.IsFalse(Grid.IsPointValid(values, 4, 4));
 		}
 
 		[TestMethod]
 		public void IsPointValid_ValidQuadrant_ReturnsTrue()
 		{
-			var array = new[,]
+			var values = new[,]
 			{
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -1124,9 +1093,7 @@ namespace Stajs.Sudoku.Core.Tests
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
 
-			var grid = new Grid(array);
-
-			Assert.IsTrue(grid.IsPointValid(4, 4));
+			Assert.IsTrue(Grid.IsPointValid(values, 4, 4));
 		}
 
 		#endregion

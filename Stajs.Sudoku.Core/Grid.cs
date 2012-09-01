@@ -22,10 +22,10 @@ namespace Stajs.Sudoku.Core
 			if (!AreDimensionsValid(values))
 				throw new ArrayLengthException();
 
-			Values = values;
-
-			if (!IsGridValid())
+			if (!IsGridValid(values))
 				throw new ArgumentException();
+
+			Values = values;
 		}
 
 		private bool AreDimensionsValid(int[,] values)
@@ -77,27 +77,27 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal bool IsPointValid(int x, int y)
+		internal static bool IsPointValid(int[,] values, int x, int y)
 		{
-			if (!IsSliceValid(Values.GetRow(x)))
+			if (!IsSliceValid(values.GetRow(x)))
 				return false;
 
-			if (!IsSliceValid(Values.GetColumn(y)))
+			if (!IsSliceValid(values.GetColumn(y)))
 				return false;
 
-			if (!IsQuadrantValid(GetQuadrantForPoint(x, y)))
+			if (!IsQuadrantValid(GetQuadrantForPoint(values, x, y)))
 				return false;
 
 			return true;
 		}
 
-		private bool IsGridValid()
+		internal static bool IsGridValid(int[,] values)
 		{
 			for (var x = 0; x < DimensionLength; x++)
 			{
 				for (var y = 0; y < DimensionLength; y++)
 				{
-					if (!IsPointValid(x, y))
+					if (!IsPointValid(values, x, y))
 						return false;
 				}
 			}
@@ -125,7 +125,7 @@ namespace Stajs.Sudoku.Core
 			return sb.ToString();
 		}
 		
-		internal int[,] GetQuadrantForPoint(int x, int y)
+		internal static int[,] GetQuadrantForPoint(int[,] values, int x, int y)
 		{
 			Quadrant quadrant;
 
@@ -157,10 +157,10 @@ namespace Stajs.Sudoku.Core
 					quadrant = Quadrant.BottomRight;
 			}
 
-			return GetQuadrant(quadrant);
+			return GetQuadrant(values, quadrant);
 		}
 
-		internal int[,] GetQuadrant(Quadrant quadrant)
+		internal static int[,] GetQuadrant(int[,] values, Quadrant quadrant)
 		{
 			int startCol;
 			int startRow;
@@ -213,7 +213,7 @@ namespace Stajs.Sudoku.Core
 				for (var j = 0; j < 3; j++)
 				{
 					var row = startRow + j;
-					ret[j, i] = Values[row, col];
+					ret[j, i] = values[row, col];
 				}
 			}
 
