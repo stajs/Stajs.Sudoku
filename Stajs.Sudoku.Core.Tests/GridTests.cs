@@ -855,5 +855,46 @@ namespace Stajs.Sudoku.Core.Tests
 		#endregion
 
 		#endregion
+
+		#region IsSliceValid
+
+		[TestMethod]
+		[ExpectedException(typeof(ValueOutOfRangeException))]
+		public void IsSliceValid_ValuesAreLessThanZero_ThrowsValueOutOfRangeException()
+		{
+			int[] array = { 0, -1, 0, 0, 0, 0, 0, 0, 0 };
+			Grid.IsSliceValid(array);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ValueOutOfRangeException))]
+		public void IsSliceValid_ValuesAreGreaterThanNine_ThrowsValueOutOfRangeException()
+		{
+			int[] array = { 0, 10, 0, 0, 0, 0, 0, 0, 0 };
+			Grid.IsSliceValid(array);
+		}
+
+		[TestMethod]
+		public void IsSliceValid_ValuesAreRepeated_ReturnsFalse()
+		{
+			int[] array = { 0, 7, 0, 0, 0, 0, 0, 0, 7 };
+			Assert.IsFalse(Grid.IsSliceValid(array));
+		}
+
+		[TestMethod]
+		public void IsSliceValid_ValuesAreZero_ReturnsTrue()
+		{
+			int[] array = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+			Assert.IsTrue(Grid.IsSliceValid(array));
+		}
+
+		[TestMethod]
+		public void IsSliceValid_ValuesAreValid_ReturnsTrue()
+		{
+			int[] array = { 1, 0, 2, 3, 4, 5, 0, 7, 0 };
+			Assert.IsTrue(Grid.IsSliceValid(array));
+		}
+
+		#endregion
 	}
 }

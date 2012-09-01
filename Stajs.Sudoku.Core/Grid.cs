@@ -51,9 +51,27 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		private bool IsValueValid(int value)
+		private static bool IsValueValid(int value)
 		{
 			return value >= MinValue && value <= MaxValue;
+		}
+
+		internal static bool IsSliceValid(int[] slice)
+		{
+			var list = new List<int>();
+
+			foreach (var i in slice)
+			{
+			   if (!IsValueValid(i))
+			      throw new ValueOutOfRangeException();
+
+			   if (i != 0 && list.Contains(i))
+			      return false;
+
+			   list.Add(i);
+			}
+
+			return true;
 		}
 
 		public override string ToString()
