@@ -796,6 +796,64 @@ namespace Stajs.Sudoku.Core.Tests
 
 		#endregion
 
+		#region GetQuadrant
+
+		[TestMethod]
+		public void GetQuadrant_TopLeft()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopLeft.GetQuadrant(Quadrant.TopLeft));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_TopCenter()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopCenter.GetQuadrant(Quadrant.TopCenter));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_TopRight()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridTopRight.GetQuadrant(Quadrant.TopRight));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_CenterLeft()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterLeft.GetQuadrant(Quadrant.CenterLeft));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_CenterCenter()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterCenter.GetQuadrant(Quadrant.CenterCenter));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_CenterRight()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridCenterRight.GetQuadrant(Quadrant.CenterRight));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_BottomLeft()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomLeft.GetQuadrant(Quadrant.BottomLeft));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_BottomCenter()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomCenter.GetQuadrant(Quadrant.BottomCenter));
+		}
+
+		[TestMethod]
+		public void GetQuadrant_BottomRight()
+		{
+			CollectionAssert.AreEqual(_expectedQuadrant, _gridBottomRight.GetQuadrant(Quadrant.BottomRight));
+		}
+
+		#endregion
+
 		#endregion
 	}
 }
