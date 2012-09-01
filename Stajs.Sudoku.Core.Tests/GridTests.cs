@@ -896,5 +896,76 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 
 		#endregion
+
+		#region IsQuadrantValid
+
+		[TestMethod]
+		[ExpectedException(typeof(ValueOutOfRangeException))]
+		public void IsQuadrantValid_ValuesAreLessThanZero_ThrowsValueOutOfRangeException()
+		{
+			var quadrant = new[,]
+			{
+				{ 0, 2, 3 },
+				{ 4, 5, 6 },
+				{ 7, -1, 9 }
+			};
+
+			Grid.IsQuadrantValid(quadrant);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ValueOutOfRangeException))]
+		public void IsQuadrantValid_ValuesAreGreaterThanNine_ThrowsValueOutOfRangeException()
+		{
+			var quadrant = new[,]
+			{
+				{ 0, 2, 3 },
+				{ 4, 5, 6 },
+				{ 7, 10, 9 }
+			};
+
+			Grid.IsQuadrantValid(quadrant);
+		}
+
+		[TestMethod]
+		public void IsQuadrantValid_ValuesAreRepeated_ReturnsFalse()
+		{
+			var quadrant = new[,]
+			{
+				{ 9, 2, 3 },
+				{ 4, 5, 6 },
+				{ 7, 8, 9 }
+			};
+
+			Assert.IsFalse(Grid.IsQuadrantValid(quadrant));
+		}
+
+		[TestMethod]
+		public void IsQuadrantValid_ValuesAreZero_ReturnsTrue()
+		{
+			var quadrant = new[,]
+			{
+				{ 0, 0, 0 },
+				{ 0, 0, 0 },
+				{ 0, 0, 0 }
+			};
+
+			Assert.IsTrue(Grid.IsQuadrantValid(quadrant));
+		}
+
+		[TestMethod]
+		public void IsQuadrantValid_ValuesAreValid_ReturnsTrue()
+		{
+			var quadrant = new[,]
+			{
+				{ 0, 2, 3 },
+				{ 4, 0, 6 },
+				{ 7, 8, 0 }
+			};
+
+			Assert.IsTrue(Grid.IsQuadrantValid(quadrant));
+		}
+
+		#endregion
 	}
 }

@@ -74,6 +74,24 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
+		internal static bool IsQuadrantValid(int[,] quadrant)
+		{
+			var list = new List<int>();
+
+			foreach (var i in quadrant)
+			{
+			   if (!IsValueValid(i))
+					throw new ValueOutOfRangeException();
+
+				if (i != 0 && list.Contains(i))
+					return false;
+
+				list.Add(i);
+			}
+
+			return true;
+		}
+
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
