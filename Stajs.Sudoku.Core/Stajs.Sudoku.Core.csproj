@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayExtensions.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="Exceptions\ArrayLengthException.cs" />

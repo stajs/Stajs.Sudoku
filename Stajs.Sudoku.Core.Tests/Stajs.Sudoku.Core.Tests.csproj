@@ -45,6 +45,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayExtensionsTests.cs" />
     <Compile Include="GridTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
