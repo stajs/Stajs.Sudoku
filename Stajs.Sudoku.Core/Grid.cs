@@ -75,5 +75,100 @@ namespace Stajs.Sudoku.Core
 
 			return sb.ToString();
 		}
+		
+		internal int[,] GetQuadrantForPoint(int x, int y)
+		{
+			Quadrant quadrant;
+
+			if (x >= 0 && x <= 2)
+			{
+				if (y >= 0 && y <= 2)
+					quadrant = Quadrant.TopLeft;
+				else if (y >= 3 && y <= 5)
+					quadrant = Quadrant.TopCenter;
+				else
+					quadrant = Quadrant.TopRight;
+			}
+			else if (x >= 3 && x <= 5)
+			{
+				if (y >= 0 && y <= 2)
+					quadrant = Quadrant.CenterLeft;
+				else if (y >= 3 && y <= 5)
+				   quadrant = Quadrant.CenterCenter;
+				else
+				   quadrant = Quadrant.CenterRight;
+			}
+			else
+			{
+				if (y >= 0 && y <= 2)
+					quadrant = Quadrant.BottomLeft;
+				else if (y >= 3 && y <= 5)
+				   quadrant = Quadrant.BottomCenter;
+				else
+					quadrant = Quadrant.BottomRight;
+			}
+
+			return GetQuadrant(quadrant);
+		}
+
+		internal int[,] GetQuadrant(Quadrant quadrant)
+		{
+			int startCol;
+			int startRow;
+
+			switch (quadrant)
+			{
+				default:
+					startCol = 0;
+					startRow = 0;
+					break;
+				case Quadrant.TopCenter:
+					startCol = 3;
+					startRow = 0;
+					break;
+				case Quadrant.TopRight:
+					startCol = 6;
+					startRow = 0;
+					break;
+				case Quadrant.CenterLeft:
+					startCol = 0;
+					startRow = 3;
+					break;
+				case Quadrant.CenterCenter:
+					startCol = 3;
+					startRow = 3;
+					break;
+				case Quadrant.CenterRight:
+					startCol = 6;
+					startRow = 3;
+					break;
+				case Quadrant.BottomLeft:
+					startCol = 0;
+					startRow = 6;
+					break;
+				case Quadrant.BottomCenter:
+					startCol = 3;
+					startRow = 6;
+					break;
+				case Quadrant.BottomRight:
+					startCol = 6;
+					startRow = 6;
+					break;
+			}
+
+			var ret = new int[3,3];
+
+			for (var i = 0; i < 3; i++)
+			{
+				var col = startCol + i;
+				for (var j = 0; j < 3; j++)
+				{
+					var row = startRow + j;
+					ret[j, i] = Values[row, col];
+				}
+			}
+
+			return ret;
+		}
 	}
 }
