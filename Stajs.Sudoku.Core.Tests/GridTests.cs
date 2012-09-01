@@ -967,5 +967,135 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 
 		#endregion
+
+		#region IsPointValid
+
+		[TestMethod]
+		public void IsPointValid_RepeatedValueInRow_ReturnsFalse()
+		{
+			var array = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 3, 4, 5, 6, 7, 7, 9 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var grid = new Grid(array);
+
+			Assert.IsFalse(grid.IsPointValid(2, 3));
+		}
+
+		[TestMethod]
+		public void IsPointValid_ValidRow_ReturnsTrue()
+		{
+			var array = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 3, 4, 5, 6, 7, 0, 9 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var grid = new Grid(array);
+
+			Assert.IsTrue(grid.IsPointValid(2, 3));
+		}
+
+		[TestMethod]
+		public void IsPointValid_RepeatedValueInColumn_ReturnsFalse()
+		{
+			var array = new[,]
+			{
+				{ 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 2, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 3, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 4, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 5, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 6, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 7, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 7, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 9, 0, 0, 0, 0, 0 }
+			};
+
+			var grid = new Grid(array);
+
+			Assert.IsFalse(grid.IsPointValid(2, 3));
+		}
+
+		[TestMethod]
+		public void IsPointValid_ValidColumn_ReturnsTrue()
+		{
+			var array = new[,]
+			{
+				{ 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 2, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 3, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 4, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 5, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 6, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 7, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 9, 0, 0, 0, 0, 0 }
+			};
+
+			var grid = new Grid(array);
+
+			Assert.IsTrue(grid.IsPointValid(2, 3));
+		}
+
+		[TestMethod]
+		public void IsPointValid_RepeatedValueInQuadrant_ReturnsFalse()
+		{
+			var array = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 9, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 9, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var grid = new Grid(array);
+
+			Assert.IsFalse(grid.IsPointValid(4, 4));
+		}
+
+		[TestMethod]
+		public void IsPointValid_ValidQuadrant_ReturnsTrue()
+		{
+			var array = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 9, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 8, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var grid = new Grid(array);
+
+			Assert.IsTrue(grid.IsPointValid(4, 4));
+		}
+
+		#endregion
 	}
 }

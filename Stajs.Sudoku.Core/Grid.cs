@@ -92,6 +92,20 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
+		internal bool IsPointValid(int x, int y)
+		{
+			if (!IsSliceValid(Values.GetRow(x)))
+				return false;
+
+			if (!IsSliceValid(Values.GetColumn(y)))
+				return false;
+
+			if (!IsQuadrantValid(GetQuadrantForPoint(x, y)))
+				return false;
+
+			return true;
+		}
+
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
