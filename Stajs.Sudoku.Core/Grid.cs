@@ -249,5 +249,10 @@ namespace Stajs.Sudoku.Core
 
 			return false;
 		}
+
+		internal static bool IsSolved(int[,] grid)
+		{
+			return !HasGaps(grid) && IsGridValid(grid);
+		}
 	}
 }

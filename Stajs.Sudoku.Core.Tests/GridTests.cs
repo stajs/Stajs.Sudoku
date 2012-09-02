@@ -1376,5 +1376,27 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 
 		#endregion
+
+		#region IsSolved
+
+		[TestMethod]
+		public void IsSolved_EmptyGrid_ReturnsFalse()
+		{
+			Assert.IsFalse(Grid.IsSolved(_emptyGrid));
+		}
+
+		[TestMethod]
+		public void IsSolved_UnsolvedGrid_ReturnsFalse()
+		{
+			Assert.IsFalse(Grid.IsSolved(_unsolvedGrid));
+		}
+
+		[TestMethod]
+		public void IsSolved_SolvedGrid_ReturnsTrue()
+		{
+			Assert.IsTrue(Grid.IsSolved(_solvedGrid));
+		}
+
+		#endregion
 	}
 }
