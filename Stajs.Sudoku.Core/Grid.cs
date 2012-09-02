@@ -219,5 +219,26 @@ namespace Stajs.Sudoku.Core
 
 			return ret;
 		}
+
+		internal static List<int> GetValidValuesForPoint(int[,] grid, int x, int y)
+		{
+			var availableValues = new List<int>();
+
+			if (grid[x, y] != 0)
+				return availableValues;
+
+			availableValues.AddRange(Enumerable.Range(1, MaxValue));
+
+			foreach (var i in grid.GetRow(x))
+				availableValues.Remove(i);
+
+			foreach (var i in grid.GetColumn(y))
+				availableValues.Remove(i);
+
+			foreach (var i in GetQuadrantForPoint(grid, x, y))
+				availableValues.Remove(i);
+
+			return availableValues;
+		}
 	}
 }

@@ -1097,6 +1097,262 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 
 		#endregion
+		
+		#region GetValidValuesForPoint
 
+		[TestMethod]
+		public void GetValidValuesForPoint_PointHasValue_ReturnsEmptyList()
+		{
+			var grid = _emptyGrid;
+			grid[4, 5] = 3;
+
+			var values = Grid.GetValidValuesForPoint(grid, 4, 5);
+
+			Assert.IsFalse(values.Any());
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_RowHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 3, 4, 5, 0, 7, 8, 9 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 1, 5);
+			var expected = new List<int> { 6 };
+
+			CollectionAssert.AreEqual(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_RowHasThreeGaps_ReturnsThreeValues()
+		{
+			var grid = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 0, 3, 4, 5, 0, 7, 8, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 1, 5);
+			var expected = new List<int> { 6, 2, 9 };
+
+			CollectionAssert.AreEquivalent(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_ColumnHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 5, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 6, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 7, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 8, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 9, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 2, 1);
+			var expected = new List<int> { 3 };
+
+			CollectionAssert.AreEqual(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_ColumnHasThreeGaps_ReturnsThreeValues()
+		{
+			var grid = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 2, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 5, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 6, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 7, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 9, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 2, 1);
+			var expected = new List<int> { 3, 1, 8 };
+
+			CollectionAssert.AreEquivalent(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_RowAndColumnHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 0, 3, 4, 5, 6, 7, 8, 9 },
+				{ 0, 3, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 5, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 6, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 7, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 8, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 9, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 1, 1);
+			var expected = new List<int> { 2 };
+
+			CollectionAssert.AreEqual(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_RowHasOneGapAndColumnHasFourGaps_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 0, 3, 4, 5, 6, 7, 8, 9 },
+				{ 0, 3, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 7, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 9, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 1, 1);
+			var expected = new List<int> { 2 };
+
+			CollectionAssert.AreEqual(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_RowHasFourGapAsndColumnHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 0, 0, 4, 0, 6, 7, 8, 0 },
+				{ 0, 3, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 5, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 6, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 7, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 8, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 9, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 1, 1);
+			var expected = new List<int> { 2 };
+
+			CollectionAssert.AreEqual(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_QuadrantHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 3, 0, 0, 0, 0, 0, 0 },
+				{ 4, 0, 6, 0, 0, 0, 0, 0, 0 },
+				{ 7, 8, 9, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 4, 1);
+			var expected = new List<int> { 5 };
+
+			CollectionAssert.AreEqual(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_QuadrantHasThreeGaps_ReturnsThreeValues()
+		{
+			var grid = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 0, 0, 0, 0, 0, 0, 0 },
+				{ 4, 0, 6, 0, 0, 0, 0, 0, 0 },
+				{ 0, 8, 9, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 4, 1);
+			var expected = new List<int> { 3, 7, 5 };
+
+			CollectionAssert.AreEquivalent(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_QuadrantHasThreeGapsAndRowHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 0, 0, 0, 0, 0, 0, 0 },
+				{ 4, 0, 6, 7, 8, 9, 1, 2, 3 },
+				{ 0, 8, 9, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 4, 1);
+			var expected = new List<int> { 5 };
+
+			CollectionAssert.AreEquivalent(expected, values);
+		}
+
+		[TestMethod]
+		public void GetValidValuesForPoint_QuadrantHasThreeGapsAndColumnHasOneGap_ReturnsOneValue()
+		{
+			var grid = new[,]
+			{
+				{ 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 3, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 2, 0, 0, 0, 0, 0, 0, 0 },
+				{ 4, 0, 6, 0, 0, 0, 0, 0, 0 },
+				{ 0, 8, 9, 0, 0, 0, 0, 0, 0 },
+				{ 0, 6, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 7, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 9, 0, 0, 0, 0, 0, 0, 0 }
+			};
+
+			var values = Grid.GetValidValuesForPoint(grid, 4, 1);
+			var expected = new List<int> { 5 };
+
+			CollectionAssert.AreEquivalent(expected, values);
+		}
+
+		#endregion
 	}
 }
