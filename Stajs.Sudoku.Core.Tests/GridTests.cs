@@ -1398,5 +1398,43 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 
 		#endregion
+
+		#region GetEmptyPoints
+
+		[TestMethod]
+		public void GetEmptyPoints_EmptyGrid_Returns81()
+		{
+			var points = Grid.GetEmptyPoints(_emptyGrid).ToList();
+
+			Assert.AreEqual(81, points.Count());
+			Assert.IsNotNull(points.Single(p => p.X == 0 && p.Y == 0));
+			Assert.IsNotNull(points.Single(p => p.X == 2 && p.Y == 6));
+			Assert.IsNotNull(points.Single(p => p.X == 8 && p.Y == 8));
+		}
+
+		[TestMethod]
+		public void GetEmptyPoints_GridWithTwoGaps_Returns2()
+		{
+			var grid = _solvedGrid;
+			grid[7, 4] = 0;
+			grid[3, 1] = 0;
+
+			var points = Grid.GetEmptyPoints(grid).ToList();
+
+			Assert.AreEqual(2, points.Count());
+			Assert.IsNotNull(points.Single(p => p.X == 7 && p.Y == 4));
+			Assert.IsNotNull(points.Single(p => p.X == 3 && p.Y == 1));
+		}
+
+		[TestMethod]
+		public void GetEmptyPoints_SolvedGrid_Returns0()
+		{
+			var points = Grid.GetEmptyPoints(_solvedGrid).ToList();
+
+			Assert.AreEqual(0, points.Count());
+		}
+
+
+		#endregion
 	}
 }

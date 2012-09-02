@@ -255,5 +255,17 @@ namespace Stajs.Sudoku.Core
 		{
 			return !HasGaps(grid) && IsGridValid(grid);
 		}
+
+		internal static IEnumerable<Point> GetEmptyPoints(int[,] grid)
+		{
+			for (var x = 0; x < DimensionLength; x++)
+			{
+				for (var y = 0; y < DimensionLength; y++)
+				{
+					if (grid[x, y] == EmptyValue)
+						yield return new Point(x, y);
+				}
+			}
+		}
 	}
 }

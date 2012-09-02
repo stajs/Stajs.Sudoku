@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ArrayExtensions.cs" />
     <Compile Include="Column.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Row.cs" />
     <Compile Include="Exceptions\ArrayLengthException.cs" />
     <Compile Include="Exceptions\ValueOutOfRangeException.cs" />
