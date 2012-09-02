@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Stajs.Sudoku.Core.Exceptions;
@@ -48,13 +49,13 @@ namespace Stajs.Sudoku.Core
 
 			foreach (var i in slice)
 			{
-			   if (!IsValueValid(i))
-			      throw new ValueOutOfRangeException();
+				if (!IsValueValid(i))
+					throw new ValueOutOfRangeException();
 
-			   if (i != EmptyValue && list.Contains(i))
-			      return false;
+				if (i != EmptyValue && list.Contains(i))
+					return false;
 
-			   list.Add(i);
+				list.Add(i);
 			}
 
 			return true;
@@ -66,7 +67,7 @@ namespace Stajs.Sudoku.Core
 
 			foreach (var i in quadrant)
 			{
-			   if (!IsValueValid(i))
+				if (!IsValueValid(i))
 					throw new ValueOutOfRangeException();
 
 				if (i != EmptyValue && list.Contains(i))
@@ -125,7 +126,7 @@ namespace Stajs.Sudoku.Core
 
 			return sb.ToString();
 		}
-		
+
 		internal static int[,] GetQuadrantForPoint(int[,] values, int x, int y)
 		{
 			Quadrant quadrant;
@@ -144,16 +145,16 @@ namespace Stajs.Sudoku.Core
 				if (y >= 0 && y <= 2)
 					quadrant = Quadrant.CenterLeft;
 				else if (y >= 3 && y <= 5)
-				   quadrant = Quadrant.CenterCenter;
+					quadrant = Quadrant.CenterCenter;
 				else
-				   quadrant = Quadrant.CenterRight;
+					quadrant = Quadrant.CenterRight;
 			}
 			else
 			{
 				if (y >= 0 && y <= 2)
 					quadrant = Quadrant.BottomLeft;
 				else if (y >= 3 && y <= 5)
-				   quadrant = Quadrant.BottomCenter;
+					quadrant = Quadrant.BottomCenter;
 				else
 					quadrant = Quadrant.BottomRight;
 			}
@@ -206,7 +207,7 @@ namespace Stajs.Sudoku.Core
 					break;
 			}
 
-			var ret = new int[3,3];
+			var ret = new int[3, 3];
 
 			for (var i = 0; i < 3; i++)
 			{
@@ -219,6 +220,11 @@ namespace Stajs.Sudoku.Core
 			}
 
 			return ret;
+		}
+
+		internal static List<int> GetValidValuesForPoint(int[,] grid, Point point)
+		{
+			return GetValidValuesForPoint(grid, point.X, point.Y);
 		}
 
 		internal static List<int> GetValidValuesForPoint(int[,] grid, int x, int y)
@@ -266,6 +272,51 @@ namespace Stajs.Sudoku.Core
 						yield return new Point(x, y);
 				}
 			}
+		}
+
+		internal static int[,] Solve(int[,] grid)
+		{
+			var stack = new Stack<int[,]>();
+			stack.Push(grid);
+
+			Trace.WriteLine("Solve Init");
+
+			var count = 0;
+
+			return Solve(stack, ref count);
+		}
+
+		private static int[,] Solve(Stack<int[,]> stack, ref int count)
+		{
+			Trace.WriteLine("\nSolve count: " + ++count);
+			Trace.WriteLine("stack.Count: " + stack.Count);
+
+			if (count > 500)
+				throw new TimeoutException();
+
+			var grid = stack.Pop();
+
+			if (IsSolved(grid))
+			{
+				Trace.WriteLine("Returning grid\n");
+				return grid;
+			}
+
+			var point = GetEmptyPoints(grid).First();
+			var values = GetValidValuesForPoint(grid, point);
+
+			Trace.WriteLine("values.Count: " + values.Count);
+
+			foreach (var value in values)
+			{
+				Trace.WriteLine("value: " + value);
+				var newGrid = grid.Copy();
+				newGrid[point.X, point.Y] = value;
+
+				stack.Push(newGrid);
+			}
+
+			return Solve(stack, ref count);
 		}
 	}
 }

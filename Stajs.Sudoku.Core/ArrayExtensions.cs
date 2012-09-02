@@ -1,4 +1,6 @@
-﻿namespace Stajs.Sudoku.Core
+﻿using System;
+
+namespace Stajs.Sudoku.Core
 {
 	internal static class ArrayExtensions
 	{
@@ -27,6 +29,17 @@
 				ret[i] = dimension == Dimension.Row
 					? source[index, i]
 					: source[i, index];
+
+			return ret;
+		}
+
+		internal static int[,] Copy(this int[,] source)
+		{
+			var width = source.GetLength(0);
+			var height = source.GetLength(1);
+			var ret = new int[width, height];
+
+			Array.Copy(source, ret, width * height);
 
 			return ret;
 		}

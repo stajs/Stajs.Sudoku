@@ -1436,5 +1436,27 @@ namespace Stajs.Sudoku.Core.Tests
 
 
 		#endregion
+
+		#region Solve
+
+		[TestMethod]
+		public void Solve_SolvedGrid_ReturnsSolvedGrid()
+		{
+			var grid = _solvedGrid.Copy();
+			var solved = Grid.Solve(grid);
+
+			CollectionAssert.AreEqual(_solvedGrid, solved);
+		}
+
+		[TestMethod]
+		public void Solve_UnsolvedGrid_ReturnsSolvedGrid()
+		{
+			var grid = _unsolvedGrid.Copy();
+			var solved = Grid.Solve(grid);
+
+			CollectionAssert.AreEqual(_solvedGrid, solved);
+		}
+
+		#endregion
 	}
 }
