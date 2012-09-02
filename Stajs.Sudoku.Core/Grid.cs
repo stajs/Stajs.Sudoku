@@ -8,9 +8,10 @@ namespace Stajs.Sudoku.Core
 {
 	public class Grid
 	{
-		const int DimensionLength = 9;
-		const int MinValue = 0;
-		const int MaxValue = 9;
+		private const int DimensionLength = 9;
+		private const int EmptyValue = 0;
+		private const int MinValue = 1;
+		private const int MaxValue = 9;
 
 		internal int[,] Values;
 
@@ -38,7 +39,7 @@ namespace Stajs.Sudoku.Core
 
 		private static bool IsValueValid(int value)
 		{
-			return value >= MinValue && value <= MaxValue;
+			return value >= EmptyValue && value <= MaxValue;
 		}
 
 		internal static bool IsSliceValid(int[] slice)
@@ -50,7 +51,7 @@ namespace Stajs.Sudoku.Core
 			   if (!IsValueValid(i))
 			      throw new ValueOutOfRangeException();
 
-			   if (i != 0 && list.Contains(i))
+			   if (i != EmptyValue && list.Contains(i))
 			      return false;
 
 			   list.Add(i);
@@ -68,7 +69,7 @@ namespace Stajs.Sudoku.Core
 			   if (!IsValueValid(i))
 					throw new ValueOutOfRangeException();
 
-				if (i != 0 && list.Contains(i))
+				if (i != EmptyValue && list.Contains(i))
 					return false;
 
 				list.Add(i);
@@ -224,7 +225,7 @@ namespace Stajs.Sudoku.Core
 		{
 			var availableValues = new List<int>();
 
-			if (grid[x, y] != 0)
+			if (grid[x, y] != EmptyValue)
 				return availableValues;
 
 			availableValues.AddRange(Enumerable.Range(1, MaxValue));
@@ -244,7 +245,7 @@ namespace Stajs.Sudoku.Core
 		internal static bool HasGaps(int[,] grid)
 		{
 			foreach (var i in grid)
-				if (i == 0)
+				if (i == EmptyValue)
 					return true;
 
 			return false;
