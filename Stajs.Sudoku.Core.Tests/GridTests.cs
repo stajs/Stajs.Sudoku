@@ -1354,5 +1354,27 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 
 		#endregion
+
+		#region HasGaps
+
+		[TestMethod]
+		public void HasGaps_EmptyGrid_ReturnsTrue()
+		{
+			Assert.IsTrue(Grid.HasGaps(_emptyGrid));
+		}
+
+		[TestMethod]
+		public void HasGaps_UnsolvedGrid_ReturnsTrue()
+		{
+			Assert.IsTrue(Grid.HasGaps(_unsolvedGrid));
+		}
+
+		[TestMethod]
+		public void HasGaps_SolvedGrid_ReturnsFalse()
+		{
+			Assert.IsFalse(Grid.HasGaps(_solvedGrid));
+		}
+
+		#endregion
 	}
 }

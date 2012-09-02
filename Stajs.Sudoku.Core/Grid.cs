@@ -240,5 +240,14 @@ namespace Stajs.Sudoku.Core
 
 			return availableValues;
 		}
+
+		internal static bool HasGaps(int[,] grid)
+		{
+			foreach (var i in grid)
+				if (i == 0)
+					return true;
+
+			return false;
+		}
 	}
 }
