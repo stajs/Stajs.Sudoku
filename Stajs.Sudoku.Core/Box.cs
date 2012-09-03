@@ -1,6 +1,6 @@
 ﻿namespace Stajs.Sudoku.Core
 {
-	public enum Quadrant
+	public enum Box
 	{
 		TopLeft,
 		TopCenter,

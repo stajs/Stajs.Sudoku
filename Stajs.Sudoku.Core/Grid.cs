@@ -61,11 +61,11 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal static bool IsQuadrantValid(int[,] quadrant)
+		internal static bool IsBoxValid(int[,] box)
 		{
 			var list = new List<int>();
 
-			foreach (var i in quadrant)
+			foreach (var i in box)
 			{
 				if (!IsValueValid(i))
 					throw new ValueOutOfRangeException();
@@ -87,7 +87,7 @@ namespace Stajs.Sudoku.Core
 			if (!IsSliceValid(values.GetColumn(y)))
 				return false;
 
-			if (!IsQuadrantValid(GetQuadrantForPoint(values, x, y)))
+			if (!IsBoxValid(GetBoxForPoint(values, x, y)))
 				return false;
 
 			return true;
@@ -127,81 +127,81 @@ namespace Stajs.Sudoku.Core
 			return sb.ToString();
 		}
 
-		internal static int[,] GetQuadrantForPoint(int[,] values, int x, int y)
+		internal static int[,] GetBoxForPoint(int[,] values, int x, int y)
 		{
-			Quadrant quadrant;
+			Box box;
 
 			if (x >= 0 && x <= 2)
 			{
 				if (y >= 0 && y <= 2)
-					quadrant = Quadrant.TopLeft;
+					box = Box.TopLeft;
 				else if (y >= 3 && y <= 5)
-					quadrant = Quadrant.TopCenter;
+					box = Box.TopCenter;
 				else
-					quadrant = Quadrant.TopRight;
+					box = Box.TopRight;
 			}
 			else if (x >= 3 && x <= 5)
 			{
 				if (y >= 0 && y <= 2)
-					quadrant = Quadrant.CenterLeft;
+					box = Box.CenterLeft;
 				else if (y >= 3 && y <= 5)
-					quadrant = Quadrant.CenterCenter;
+					box = Box.CenterCenter;
 				else
-					quadrant = Quadrant.CenterRight;
+					box = Box.CenterRight;
 			}
 			else
 			{
 				if (y >= 0 && y <= 2)
-					quadrant = Quadrant.BottomLeft;
+					box = Box.BottomLeft;
 				else if (y >= 3 && y <= 5)
-					quadrant = Quadrant.BottomCenter;
+					box = Box.BottomCenter;
 				else
-					quadrant = Quadrant.BottomRight;
+					box = Box.BottomRight;
 			}
 
-			return GetQuadrant(values, quadrant);
+			return GetBox(values, box);
 		}
 
-		internal static int[,] GetQuadrant(int[,] values, Quadrant quadrant)
+		internal static int[,] GetBox(int[,] values, Box box)
 		{
 			int startCol;
 			int startRow;
 
-			switch (quadrant)
+			switch (box)
 			{
 				default:
 					startCol = 0;
 					startRow = 0;
 					break;
-				case Quadrant.TopCenter:
+				case Box.TopCenter:
 					startCol = 3;
 					startRow = 0;
 					break;
-				case Quadrant.TopRight:
+				case Box.TopRight:
 					startCol = 6;
 					startRow = 0;
 					break;
-				case Quadrant.CenterLeft:
+				case Box.CenterLeft:
 					startCol = 0;
 					startRow = 3;
 					break;
-				case Quadrant.CenterCenter:
+				case Box.CenterCenter:
 					startCol = 3;
 					startRow = 3;
 					break;
-				case Quadrant.CenterRight:
+				case Box.CenterRight:
 					startCol = 6;
 					startRow = 3;
 					break;
-				case Quadrant.BottomLeft:
+				case Box.BottomLeft:
 					startCol = 0;
 					startRow = 6;
 					break;
-				case Quadrant.BottomCenter:
+				case Box.BottomCenter:
 					startCol = 3;
 					startRow = 6;
 					break;
-				case Quadrant.BottomRight:
+				case Box.BottomRight:
 					startCol = 6;
 					startRow = 6;
 					break;
@@ -242,7 +242,7 @@ namespace Stajs.Sudoku.Core
 			foreach (var i in grid.GetColumn(y))
 				availableValues.Remove(i);
 
-			foreach (var i in GetQuadrantForPoint(grid, x, y))
+			foreach (var i in GetBoxForPoint(grid, x, y))
 				availableValues.Remove(i);
 
 			return availableValues;
