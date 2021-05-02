@@ -1,322 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System;
 using System.Text;
-using Stajs.Sudoku.Core.Exceptions;
 
 namespace Stajs.Sudoku.Core
 {
+	public record Point(byte X, byte Y);
+
+	public enum BoxRow
+	{
+		Top, Center, Bottom
+	}
+
+	public enum BoxColumn
+	{
+		Left, Center, Right
+	}
+
 	public class Grid
 	{
-		private const int DimensionLength = 9;
-		private const int EmptyValue = 0;
-		private const int MinValue = 1;
-		private const int MaxValue = 9;
+		internal byte?[,] _grid = new byte?[9, 9];
 
-		internal int[,] Values;
-
-		public Grid(int[,] values)
+		public Grid(byte?[,] grid)
 		{
-			if (values == null)
-				throw new ArgumentNullException();
-
-			if (!AreDimensionsValid(values))
-				throw new ArrayLengthException();
-
-			if (!IsGridValid(values))
-				throw new ArgumentException();
-
-			Values = values;
+			_grid = grid;
 		}
 
-		private bool AreDimensionsValid(int[,] values)
+		internal static BoxColumn GetBoxColumn(Point p)
 		{
-			var dimensionZeroLength = values.GetLength(0);
-			var dimensionOneLength = values.GetLength(1);
-
-			return dimensionZeroLength == DimensionLength && dimensionOneLength == DimensionLength;
+			if (p.X < 3)
+				return BoxColumn.Left;
+			else if (p.X < 6)
+				return BoxColumn.Center;
+			else
+				return BoxColumn.Right;
 		}
 
-		private static bool IsValueValid(int value)
+		internal static BoxRow GetBoxRow(Point p)
 		{
-			return value >= EmptyValue && value <= MaxValue;
+			if (p.Y < 3)
+				return BoxRow.Top;
+			else if (p.Y < 6)
+				return BoxRow.Center;
+			else
+				return BoxRow.Bottom;
 		}
 
-		internal static bool IsSliceValid(int[] slice)
+		internal static (BoxRow row, BoxColumn column) GetBox(Point p)
 		{
-			var list = new List<int>();
+			return (GetBoxRow(p), GetBoxColumn(p));
+		}
 
-			foreach (var i in slice)
+		internal static (Point start, Point end) GetBoxPoints(Point p)
+		{
+			var (row, column) = GetBox(p);
+
+			if (row == BoxRow.Top)
 			{
-				if (!IsValueValid(i))
-					throw new ValueOutOfRangeException();
-
-				if (i != EmptyValue && list.Contains(i))
-					return false;
-
-				list.Add(i);
+				if (column == BoxColumn.Left)
+					return (new Point(0, 0), new Point(2, 2));
+				else if (column == BoxColumn.Center)
+					return (new Point(0, 3), new Point(5, 2));
+				else
+					return (new Point(0, 6), new Point(8, 2));
 			}
-
-			return true;
-		}
-
-		internal static bool IsBoxValid(int[,] box)
-		{
-			var list = new List<int>();
-
-			foreach (var i in box)
-			{
-				if (!IsValueValid(i))
-					throw new ValueOutOfRangeException();
-
-				if (i != EmptyValue && list.Contains(i))
-					return false;
-
-				list.Add(i);
-			}
-
-			return true;
-		}
-
-		internal static bool IsPointValid(int[,] values, int x, int y)
-		{
-			if (!IsSliceValid(values.GetRow(x)))
-				return false;
-
-			if (!IsSliceValid(values.GetColumn(y)))
-				return false;
-
-			if (!IsBoxValid(GetBoxForPoint(values, x, y)))
-				return false;
-
-			return true;
-		}
-
-		internal static bool IsGridValid(int[,] values)
-		{
-			for (var x = 0; x < DimensionLength; x++)
-			{
-				for (var y = 0; y < DimensionLength; y++)
-				{
-					if (!IsPointValid(values, x, y))
-						return false;
-				}
-			}
-
-			return true;
+			else
+				throw new NotImplementedException("TODO");
 		}
 
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
 
-			for (var i = 0; i < DimensionLength; i++)
+			for (int i = 0; i < 9; i++)
 			{
-				sb.Append("{");
+				for (int j = 0; j < 9; j++)
+				{
+					var val = _grid[i, j]?.ToString() ?? "-";
+					sb.Append(val);
 
-				for (var j = 0; j < DimensionLength; j++)
-					sb.AppendFormat(" {0},", Values[i, j]);
+					if (j == 2 || j == 5)
+						sb.Append('┃');
+				}
 
-				sb.Remove(sb.Length - 1, 1)
-					.AppendLine(" },");
+				sb.AppendLine();
+
+				if (i == 2 || i == 5)
+					sb.AppendLine("━━━╋━━━╋━━━");
 			}
-
-			sb.Remove(sb.Length - 3, 3);
 
 			return sb.ToString();
-		}
-
-		internal static int[,] GetBoxForPoint(int[,] values, int x, int y)
-		{
-			Box box;
-
-			if (x >= 0 && x <= 2)
-			{
-				if (y >= 0 && y <= 2)
-					box = Box.TopLeft;
-				else if (y >= 3 && y <= 5)
-					box = Box.TopCenter;
-				else
-					box = Box.TopRight;
-			}
-			else if (x >= 3 && x <= 5)
-			{
-				if (y >= 0 && y <= 2)
-					box = Box.CenterLeft;
-				else if (y >= 3 && y <= 5)
-					box = Box.CenterCenter;
-				else
-					box = Box.CenterRight;
-			}
-			else
-			{
-				if (y >= 0 && y <= 2)
-					box = Box.BottomLeft;
-				else if (y >= 3 && y <= 5)
-					box = Box.BottomCenter;
-				else
-					box = Box.BottomRight;
-			}
-
-			return GetBox(values, box);
-		}
-
-		internal static int[,] GetBox(int[,] values, Box box)
-		{
-			int startCol;
-			int startRow;
-
-			switch (box)
-			{
-				default:
-					startCol = 0;
-					startRow = 0;
-					break;
-				case Box.TopCenter:
-					startCol = 3;
-					startRow = 0;
-					break;
-				case Box.TopRight:
-					startCol = 6;
-					startRow = 0;
-					break;
-				case Box.CenterLeft:
-					startCol = 0;
-					startRow = 3;
-					break;
-				case Box.CenterCenter:
-					startCol = 3;
-					startRow = 3;
-					break;
-				case Box.CenterRight:
-					startCol = 6;
-					startRow = 3;
-					break;
-				case Box.BottomLeft:
-					startCol = 0;
-					startRow = 6;
-					break;
-				case Box.BottomCenter:
-					startCol = 3;
-					startRow = 6;
-					break;
-				case Box.BottomRight:
-					startCol = 6;
-					startRow = 6;
-					break;
-			}
-
-			var ret = new int[3, 3];
-
-			for (var i = 0; i < 3; i++)
-			{
-				var col = startCol + i;
-				for (var j = 0; j < 3; j++)
-				{
-					var row = startRow + j;
-					ret[j, i] = values[row, col];
-				}
-			}
-
-			return ret;
-		}
-
-		internal static List<int> GetValidValuesForPoint(int[,] grid, Point point)
-		{
-			return GetValidValuesForPoint(grid, point.X, point.Y);
-		}
-
-		internal static List<int> GetValidValuesForPoint(int[,] grid, int x, int y)
-		{
-			var availableValues = new List<int>();
-
-			if (grid[x, y] != EmptyValue)
-				return availableValues;
-
-			availableValues.AddRange(Enumerable.Range(1, MaxValue));
-
-			foreach (var i in grid.GetRow(x))
-				availableValues.Remove(i);
-
-			foreach (var i in grid.GetColumn(y))
-				availableValues.Remove(i);
-
-			foreach (var i in GetBoxForPoint(grid, x, y))
-				availableValues.Remove(i);
-
-			return availableValues;
-		}
-
-		internal static bool HasGaps(int[,] grid)
-		{
-			foreach (var i in grid)
-				if (i == EmptyValue)
-					return true;
-
-			return false;
-		}
-
-		internal static bool IsSolved(int[,] grid)
-		{
-			return !HasGaps(grid) && IsGridValid(grid);
-		}
-
-		internal static IEnumerable<Point> GetEmptyPoints(int[,] grid)
-		{
-			for (var x = 0; x < DimensionLength; x++)
-			{
-				for (var y = 0; y < DimensionLength; y++)
-				{
-					if (grid[x, y] == EmptyValue)
-						yield return new Point(x, y);
-				}
-			}
-		}
-
-		internal static int[,] Solve(int[,] grid)
-		{
-			var stack = new Stack<int[,]>();
-			stack.Push(grid);
-
-			Trace.WriteLine("Solve Init");
-
-			var count = 0;
-
-			return Solve(stack, ref count);
-		}
-
-		private static int[,] Solve(Stack<int[,]> stack, ref int count)
-		{
-			Trace.WriteLine("\nSolve count: " + ++count);
-			Trace.WriteLine("stack.Count: " + stack.Count);
-
-			if (count > 500)
-				throw new TimeoutException();
-
-			var grid = stack.Pop();
-
-			if (IsSolved(grid))
-			{
-				Trace.WriteLine("Returning grid\n");
-				return grid;
-			}
-
-			var point = GetEmptyPoints(grid).First();
-			var values = GetValidValuesForPoint(grid, point);
-
-			Trace.WriteLine("values.Count: " + values.Count);
-
-			foreach (var value in values)
-			{
-				Trace.WriteLine("value: " + value);
-				var newGrid = grid.Copy();
-				newGrid[point.X, point.Y] = value;
-
-				stack.Push(newGrid);
-			}
-
-			return Solve(stack, ref count);
 		}
 	}
 }
