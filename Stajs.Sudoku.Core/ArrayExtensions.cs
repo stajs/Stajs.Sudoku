@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Stajs.Sudoku.Core
 {
@@ -78,6 +81,51 @@ namespace Stajs.Sudoku.Core
 			Array.Copy(source, ret, width * height);
 
 			return ret;
+		}
+
+		internal static IEnumerable<byte> ExcludeNulls(this byte?[] source)
+		{
+			return source.Where(b => b.HasValue).Cast<byte>();
+		}
+
+		internal static IEnumerable<byte> ExcludeNulls(this byte?[,] box)
+		{
+			var ret = new List<byte>();
+
+			for (int y = 0; y < 3; y++)
+			{
+				for (int x = 0; x < 3; x++)
+				{
+					if (box[y, x].HasValue)
+						ret.Add(box[y, x].Value);
+				}
+			}
+
+			return ret;
+		}
+
+		public static string ToStringGrid(this byte?[,] grid)
+		{
+			var sb = new StringBuilder();
+
+			for (int y = 0; y < 9; y++)
+			{
+				for (int x = 0; x < 9; x++)
+				{
+					var val = grid[y, x]?.ToString() ?? "-";
+					sb.Append(val);
+
+					if (x == 2 || x == 5)
+						sb.Append('┃');
+				}
+
+				sb.AppendLine();
+
+				if (y == 2 || y == 5)
+					sb.AppendLine("━━━╋━━━╋━━━");
+			}
+
+			return sb.ToString();
 		}
 	}
 }

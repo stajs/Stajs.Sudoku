@@ -33,7 +33,7 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal bool IsBoxValid(byte?[,] box)
+		internal static bool IsBoxValid(byte?[,] box)
 		{
 			var list = new List<byte?>();
 
@@ -54,7 +54,7 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal bool IsPointValid(byte?[,] grid, Point point)
+		internal static bool IsPointValid(byte?[,] grid, Point point)
 		{
 			if (!IsSliceValid(grid.GetRow(point.Y)))
 				return false;
@@ -68,7 +68,7 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal bool IsGridValid(byte?[,] grid)
+		internal static bool IsGridValid(byte?[,] grid)
 		{
 			for (byte y = 0; y < 9; y++)
 			{
@@ -82,14 +82,14 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal bool HasGaps()
+		internal bool HasGaps(byte?[,] grid)
 		{
 			for (byte y = 0; y < 9; y++)
 			{
 				for (byte x = 0; x < 9; x++)
 				{
-					if (_grid[y, x] == null)
-						return false;
+					if (grid[y, x] == null)
+						return true;
 				}
 			}
 
@@ -108,22 +108,20 @@ namespace Stajs.Sudoku.Core
 			}
 		}
 
-		internal static List<byte> GetValidValuesForPoint(byte?[,] grid, byte x, byte y)
+		internal static List<byte> GetValidValuesForPoint(byte?[,] grid, Point point)
 		{
-			var availableValues = new List<byte>();
+			if (grid[point.Y, point.X] != null)
+				return new List<byte>();
 
-			if (grid[y, x] != null)
-				return availableValues;
+			var availableValues = Enumerable.Range(1, 9).Select(x => (byte)x).ToList();
 
-			availableValues.AddRange(Enumerable.Range(1, 9).Select(x => (byte)x));
-
-			foreach (byte i in grid.GetRow(x))
+			foreach (byte i in grid.GetRow(point.Y).ExcludeNulls())
 				availableValues.Remove(i);
 
-			foreach (byte i in grid.GetColumn(y))
+			foreach (byte i in grid.GetColumn(point.X).ExcludeNulls())
 				availableValues.Remove(i);
 
-			foreach (byte i in grid.GetBox(new Point(x, y)))
+			foreach (byte i in grid.GetBox(point).ExcludeNulls())
 				availableValues.Remove(i);
 
 			return availableValues;
@@ -131,7 +129,7 @@ namespace Stajs.Sudoku.Core
 
 		internal bool IsSolved(byte?[,] grid)
 		{
-			return !HasGaps() && IsGridValid(grid);
+			return !HasGaps(grid) && IsGridValid(grid);
 		}
 
 		internal byte?[,] Solve()
@@ -163,7 +161,7 @@ namespace Stajs.Sudoku.Core
 			}
 
 			var point = GetEmptyPoints(grid).First();
-			var values = GetValidValuesForPoint(grid, point.X, point.Y);
+			var values = GetValidValuesForPoint(grid, point);
 
 			Trace.WriteLine("values.Count: " + values.Count);
 
@@ -171,7 +169,7 @@ namespace Stajs.Sudoku.Core
 			{
 				Trace.WriteLine("value: " + value);
 				var newGrid = grid.Copy();
-				newGrid[point.X, point.Y] = value;
+				newGrid[point.Y, point.X] = value;
 
 				stack.Push(newGrid);
 			}
@@ -181,26 +179,7 @@ namespace Stajs.Sudoku.Core
 
 		public override string ToString()
 		{
-			var sb = new StringBuilder();
-
-			for (int i = 0; i < 9; i++)
-			{
-				for (int j = 0; j < 9; j++)
-				{
-					var val = _grid[i, j]?.ToString() ?? "-";
-					sb.Append(val);
-
-					if (j == 2 || j == 5)
-						sb.Append('┃');
-				}
-
-				sb.AppendLine();
-
-				if (i == 2 || i == 5)
-					sb.AppendLine("━━━╋━━━╋━━━");
-			}
-
-			return sb.ToString();
+			return _grid.ToStringGrid();
 		}
 	}
 }

@@ -19,26 +19,6 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 73, 74, 75, 76, 77, 78, 79, 80, 81 }
 		};
 
-		#region IsGridValid
-		// [Fact]
-		// public void IsGridValid_SolvedGrid()
-		// {
-		// 	var grid = new Grid(Wat.SolvedGrid);
-		// 	var isValid = _uniqueGrid.IsGridValid();
-
-		// 	isValid.Should().BeTrue();
-		// }
-
-		// [Fact]
-		// public void IsGridValid_UnsolvedGrid()
-		// {
-		// 	var grid = new Grid(Wat.UnsolvedGrid);
-		// 	var isValid = _uniqueGrid.IsGridValid();
-
-		// 	isValid.Should().BeTrue();
-		// }
-		#endregion
-
 		#region GetRow
 		[Fact]
 		public void GetRow()
