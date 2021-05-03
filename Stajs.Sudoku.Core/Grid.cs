@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace Stajs.Sudoku.Core
@@ -11,82 +13,6 @@ namespace Stajs.Sudoku.Core
 		public Grid(byte?[,] grid)
 		{
 			_grid = grid;
-		}
-
-		internal Box GetBox(Point p) => p switch
-		{
-			Point { X: <= 2, Y: <= 2} => Box.TopLeft,
-			Point { X: <= 5, Y: <= 2} => Box.TopCenter,
-			Point { X: <= 8, Y: <= 2} => Box.TopRight,
-			Point { X: <= 2, Y: <= 5} => Box.CenterLeft,
-			Point { X: <= 5, Y: <= 5} => Box.CenterCenter,
-			Point { X: <= 8, Y: <= 5} => Box.CenterRight,
-			Point { X: <= 2, Y: <= 8} => Box.BottomLeft,
-			Point { X: <= 5, Y: <= 8} => Box.BottomCenter,
-			Point { X: <= 8, Y: <= 8} => Box.BottomRight,
-			_ => throw new ArgumentOutOfRangeException(nameof(p), $"Can't find Box for Point({p.X}, {p.Y})")
-		};
-
-		internal Point GetBoxStart(Box b) => b switch
-		{
-			Box.TopLeft => new Point(0, 0),
-			Box.TopCenter => new Point(3, 0),
-			Box.TopRight => new Point(6, 0),
-			Box.CenterLeft => new Point(0, 3),
-			Box.CenterCenter => new Point(3, 3),
-			Box.CenterRight => new Point(6, 3),
-			Box.BottomLeft => new Point(0, 6),
-			Box.BottomCenter => new Point(3, 6),
-			Box.BottomRight => new Point(6, 6),
-			_ => throw new ArgumentOutOfRangeException(nameof(b), $"Can't find Box {b}")
-		};
-
-		internal byte?[,] GetBoxValues(Point point)
-		{
-			var box = GetBox(point);
-			return GetBoxValues(box);
-		}
-		
-		internal byte?[,] GetBoxValues(Box box)
-		{
-			var start = GetBoxStart(box);
-			var ret = new byte?[3, 3];
-
-			for (var i = 0; i < 3; i++)
-			{
-				var col = start.X + i;
-				for (var j = 0; j < 3; j++)
-				{
-					var row = start.Y + j;
-					ret[j, i] = _grid[row, col];
-				}
-			}
-
-			return ret;
-		}
-
-		internal byte?[] GetRow(Point p)
-		{
-			var ret = new byte?[9];
-			
-			for (int i = 0; i < 9; i++)
-			{
-				ret[i] = _grid[p.Y, i];
-			}
-
-			return ret;
-		}
-
-		internal byte?[] GetColumn(Point p)
-		{
-			var ret = new byte?[9];
-			
-			for (int i = 0; i < 9; i++)
-			{
-				ret[i] = _grid[i, p.X];
-			}
-
-			return ret;
 		}
 
 		internal static bool IsSliceValid(byte?[] slice)
@@ -128,32 +54,129 @@ namespace Stajs.Sudoku.Core
 			return true;
 		}
 
-		internal bool IsPointValid(Point point)
+		internal bool IsPointValid(byte?[,] grid, Point point)
 		{
-			if (!IsSliceValid(GetRow(point)))
+			if (!IsSliceValid(grid.GetRow(point.Y)))
 				return false;
 
-			if (!IsSliceValid(GetColumn(point)))
+			if (!IsSliceValid(grid.GetColumn(point.X)))
 				return false;
 
-			if (!IsBoxValid(GetBoxValues(point)))
+			if (!IsBoxValid(grid.GetBox(point)))
 				return false;
 
 			return true;
 		}
 
-		internal bool IsGridValid()
+		internal bool IsGridValid(byte?[,] grid)
 		{
 			for (byte y = 0; y < 9; y++)
 			{
 				for (byte x = 0; x < 9; x++)
 				{
-					if (!IsPointValid(new Point(x, y)))
+					if (!IsPointValid(grid, new Point(x, y)))
 						return false;
 				}
 			}
 
 			return true;
+		}
+
+		internal bool HasGaps()
+		{
+			for (byte y = 0; y < 9; y++)
+			{
+				for (byte x = 0; x < 9; x++)
+				{
+					if (_grid[y, x] == null)
+						return false;
+				}
+			}
+
+			return false;
+		}
+
+		internal static IEnumerable<Point> GetEmptyPoints(byte?[,] grid)
+		{
+			for (byte y = 0; y < 9; y++)
+			{
+				for (byte x = 0; x < 9; x++)
+				{
+					if (grid[y, x] == null)
+						yield return new Point(x, y);
+				}
+			}
+		}
+
+		internal static List<byte> GetValidValuesForPoint(byte?[,] grid, byte x, byte y)
+		{
+			var availableValues = new List<byte>();
+
+			if (grid[y, x] != null)
+				return availableValues;
+
+			availableValues.AddRange(Enumerable.Range(1, 9).Select(x => (byte)x));
+
+			foreach (byte i in grid.GetRow(x))
+				availableValues.Remove(i);
+
+			foreach (byte i in grid.GetColumn(y))
+				availableValues.Remove(i);
+
+			foreach (byte i in grid.GetBox(new Point(x, y)))
+				availableValues.Remove(i);
+
+			return availableValues;
+		}
+
+		internal bool IsSolved(byte?[,] grid)
+		{
+			return !HasGaps() && IsGridValid(grid);
+		}
+
+		internal byte?[,] Solve()
+		{
+			var stack = new Stack<byte?[,]>();
+			stack.Push(_grid);
+
+			Trace.WriteLine("Solve Init");
+
+			var count = 0;
+
+			return Solve(stack, ref count);
+		}
+
+		private byte?[,] Solve(Stack<byte?[,]> stack, ref int count)
+		{
+			Trace.WriteLine("\nSolve count: " + ++count);
+			Trace.WriteLine("stack.Count: " + stack.Count);
+
+			if (count > 500)
+				throw new TimeoutException();
+
+			var grid = stack.Pop();
+
+			if (IsSolved(grid))
+			{
+				Trace.WriteLine("Returning grid\n");
+				return grid;
+			}
+
+			var point = GetEmptyPoints(grid).First();
+			var values = GetValidValuesForPoint(grid, point.X, point.Y);
+
+			Trace.WriteLine("values.Count: " + values.Count);
+
+			foreach (var value in values)
+			{
+				Trace.WriteLine("value: " + value);
+				var newGrid = grid.Copy();
+				newGrid[point.X, point.Y] = value;
+
+				stack.Push(newGrid);
+			}
+
+			return Solve(stack, ref count);
 		}
 
 		public override string ToString()
