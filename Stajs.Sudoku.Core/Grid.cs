@@ -3,18 +3,6 @@ using System.Text;
 
 namespace Stajs.Sudoku.Core
 {
-	public record Point(byte X, byte Y);
-
-	public enum BoxRow
-	{
-		Top, Center, Bottom
-	}
-
-	public enum BoxColumn
-	{
-		Left, Center, Right
-	}
-
 	public class Grid
 	{
 		internal byte?[,] _grid = new byte?[9, 9];
@@ -24,46 +12,80 @@ namespace Stajs.Sudoku.Core
 			_grid = grid;
 		}
 
-		internal static BoxColumn GetBoxColumn(Point p)
+		internal Box GetBox(Point p) => p switch
 		{
-			if (p.X < 3)
-				return BoxColumn.Left;
-			else if (p.X < 6)
-				return BoxColumn.Center;
-			else
-				return BoxColumn.Right;
+			Point { X: <= 2, Y: <= 2} => Box.TopLeft,
+			Point { X: <= 5, Y: <= 2} => Box.TopCenter,
+			Point { X: <= 8, Y: <= 2} => Box.TopRight,
+			Point { X: <= 2, Y: <= 5} => Box.CenterLeft,
+			Point { X: <= 5, Y: <= 5} => Box.CenterCenter,
+			Point { X: <= 8, Y: <= 5} => Box.CenterRight,
+			Point { X: <= 2, Y: <= 8} => Box.BottomLeft,
+			Point { X: <= 5, Y: <= 8} => Box.BottomCenter,
+			Point { X: <= 8, Y: <= 8} => Box.BottomRight,
+			_ => throw new ArgumentOutOfRangeException(nameof(p), $"Can't find Box for Point({p.X}, {p.Y})")
+		};
+
+		internal Point GetBoxStart(Box b) => b switch
+		{
+			Box.TopLeft => new Point(0, 0),
+			Box.TopCenter => new Point(3, 0),
+			Box.TopRight => new Point(6, 0),
+			Box.CenterLeft => new Point(0, 3),
+			Box.CenterCenter => new Point(3, 3),
+			Box.CenterRight => new Point(6, 3),
+			Box.BottomLeft => new Point(0, 6),
+			Box.BottomCenter => new Point(3, 6),
+			Box.BottomRight => new Point(6, 6),
+			_ => throw new ArgumentOutOfRangeException(nameof(b), $"Can't find Box {b}")
+		};
+
+		internal byte?[,] GetBoxValues(Point point)
+		{
+			var box = GetBox(point);
+			return GetBoxValues(box);
 		}
-
-		internal static BoxRow GetBoxRow(Point p)
+		
+		internal byte?[,] GetBoxValues(Box box)
 		{
-			if (p.Y < 3)
-				return BoxRow.Top;
-			else if (p.Y < 6)
-				return BoxRow.Center;
-			else
-				return BoxRow.Bottom;
-		}
+			var start = GetBoxStart(box);
+			var ret = new byte?[3, 3];
 
-		internal static (BoxRow row, BoxColumn column) GetBox(Point p)
-		{
-			return (GetBoxRow(p), GetBoxColumn(p));
-		}
-
-		internal static (Point start, Point end) GetBoxPoints(Point p)
-		{
-			var (row, column) = GetBox(p);
-
-			if (row == BoxRow.Top)
+			for (var i = 0; i < 3; i++)
 			{
-				if (column == BoxColumn.Left)
-					return (new Point(0, 0), new Point(2, 2));
-				else if (column == BoxColumn.Center)
-					return (new Point(0, 3), new Point(5, 2));
-				else
-					return (new Point(0, 6), new Point(8, 2));
+				var col = start.X + i;
+				for (var j = 0; j < 3; j++)
+				{
+					var row = start.Y + j;
+					ret[j, i] = _grid[row, col];
+				}
 			}
-			else
-				throw new NotImplementedException("TODO");
+
+			return ret;
+		}
+
+		internal byte?[] GetRow(Point p)
+		{
+			var ret = new byte?[9];
+			
+			for (int i = 0; i < 9; i++)
+			{
+				ret[i] = _grid[p.Y, i];
+			}
+
+			return ret;
+		}
+
+		internal byte?[] GetColumn(Point p)
+		{
+			var ret = new byte?[9];
+			
+			for (int i = 0; i < 9; i++)
+			{
+				ret[i] = _grid[i, p.X];
+			}
+
+			return ret;
 		}
 
 		public override string ToString()
