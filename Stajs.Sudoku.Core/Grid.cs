@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Stajs.Sudoku.Core
@@ -86,6 +87,73 @@ namespace Stajs.Sudoku.Core
 			}
 
 			return ret;
+		}
+
+		internal static bool IsSliceValid(byte?[] slice)
+		{
+			var list = new List<byte?>();
+
+			foreach (var i in slice)
+			{
+				if (i.HasValue)
+				{
+					if (list.Contains(i))
+						return false;
+					else
+						list.Add(i);
+				}
+			}
+
+			return true;
+		}
+
+		internal bool IsBoxValid(byte?[,] box)
+		{
+			var list = new List<byte?>();
+
+			for (byte row = 0; row < 3; row++)
+			{
+				for (byte col = 0; col < 3; col++)
+				{
+					if (box[row, col].HasValue)
+					{
+						if (list.Contains(box[row, col]))
+							return false;
+						else
+							list.Add(box[row, col]);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		internal bool IsPointValid(Point point)
+		{
+			if (!IsSliceValid(GetRow(point)))
+				return false;
+
+			if (!IsSliceValid(GetColumn(point)))
+				return false;
+
+			if (!IsBoxValid(GetBoxValues(point)))
+				return false;
+
+			return true;
+		}
+
+		internal bool IsGridValid()
+		{
+			for (byte y = 0; y < 9; y++)
+			{
+				for (byte x = 0; x < 9; x++)
+				{
+					if (!IsPointValid(new Point(x, y)))
+						return false;
+				}
+			}
+
+			return true;
 		}
 
 		public override string ToString()

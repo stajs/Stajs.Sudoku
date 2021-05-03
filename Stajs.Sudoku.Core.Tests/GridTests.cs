@@ -19,6 +19,26 @@ namespace Stajs.Sudoku.Core.Tests
 			{ 73, 74, 75, 76, 77, 78, 79, 80, 81 }
 		};
 
+		#region IsGridValid
+		[Fact]
+		public void IsGridValid_SolvedGrid()
+		{
+			var grid = new Grid(Wat.SolvedGrid);
+			var isValid = grid.IsGridValid();
+
+			isValid.Should().BeTrue();
+		}
+
+		[Fact]
+		public void IsGridValid_UnsolvedGrid()
+		{
+			var grid = new Grid(Wat.UnsolvedGrid);
+			var isValid = grid.IsGridValid();
+
+			isValid.Should().BeTrue();
+		}	
+		#endregion
+
 		#region GetRow
 		[Fact]
 		public void GetRow()
@@ -47,7 +67,7 @@ namespace Stajs.Sudoku.Core.Tests
 
 		#region GetBoxValues
 		[Fact]
-		public void GetBoxValuesTopLeft()
+		public void GetBoxValues_TopLeft()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.TopLeft);
@@ -63,7 +83,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesTopCenter()
+		public void GetBoxValues_TopCenter()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.TopCenter);
@@ -79,7 +99,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesTopRight()
+		public void GetBoxValues_TopRight()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.TopRight);
@@ -95,7 +115,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesCenterLeft()
+		public void GetBoxValues_CenterLeft()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.CenterLeft);
@@ -111,7 +131,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesCenterCenter()
+		public void GetBoxValues_CenterCenter()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.CenterCenter);
@@ -127,7 +147,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesCenterRight()
+		public void GetBoxValues_CenterRight()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.CenterRight);
@@ -143,7 +163,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesBottomLeft()
+		public void GetBoxValues_BottomLeft()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.BottomLeft);
@@ -159,7 +179,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesBottomCenter()
+		public void GetBoxValues_BottomCenter()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.BottomCenter);
@@ -175,7 +195,7 @@ namespace Stajs.Sudoku.Core.Tests
 		}
 		
 		[Fact]
-		public void GetBoxValuesBottomRight()
+		public void GetBoxValues_BottomRight()
 		{
 			var grid = new Grid(_grid);
 			var values = grid.GetBoxValues(Box.BottomRight);
@@ -192,7 +212,6 @@ namespace Stajs.Sudoku.Core.Tests
 		#endregion
 
 		#region GetBox
-		
 		[Theory]
 		[InlineData(0, 0)]
 		[InlineData(0, 1)]
@@ -203,7 +222,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(2, 0)]
 		[InlineData(2, 1)]
 		[InlineData(2, 2)]
-		public void GetBoxTopLeft(byte x, byte y)
+		public void GetBox_TopLeft(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -222,7 +241,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(5, 0)]
 		[InlineData(5, 1)]
 		[InlineData(5, 2)]
-		public void GetBoxTopCenter(byte x, byte y)
+		public void GetBox_TopCenter(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -241,7 +260,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(8, 0)]
 		[InlineData(8, 1)]
 		[InlineData(8, 2)]
-		public void GetBoxTopRight(byte x, byte y)
+		public void GetBox_TopRight(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -260,7 +279,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(2, 3)]
 		[InlineData(2, 4)]
 		[InlineData(2, 5)]
-		public void GetBoxCenterLeft(byte x, byte y)
+		public void GetBox_CenterLeft(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -279,7 +298,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(5, 3)]
 		[InlineData(5, 4)]
 		[InlineData(5, 5)]
-		public void GetBoxCenterCenter(byte x, byte y)
+		public void GetBox_CenterCenter(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -298,7 +317,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(8, 3)]
 		[InlineData(8, 4)]
 		[InlineData(8, 5)]
-		public void GetBoxCenterRight(byte x, byte y)
+		public void GetBox_CenterRight(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -317,7 +336,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(2, 6)]
 		[InlineData(2, 7)]
 		[InlineData(2, 8)]
-		public void GetBoxBottomLeft(byte x, byte y)
+		public void GetBox_BottomLeft(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -336,7 +355,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(5, 6)]
 		[InlineData(5, 7)]
 		[InlineData(5, 8)]
-		public void GetBoxBottomCenter(byte x, byte y)
+		public void GetBox_BottomCenter(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
@@ -355,7 +374,7 @@ namespace Stajs.Sudoku.Core.Tests
 		[InlineData(8, 6)]
 		[InlineData(8, 7)]
 		[InlineData(8, 8)]
-		public void GetBoxBottomRight(byte x, byte y)
+		public void GetBox_BottomRight(byte x, byte y)
 		{
 			var point = new Point(x, y);
 			var grid = new Grid(_grid);
